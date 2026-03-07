@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VJ Procedural Generator - Launcher</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #111;
+            color: #eee;
+            padding: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        h1 {
+            border-bottom: 1px solid #333;
+            padding-bottom: 1.5rem;
+            margin-bottom: 3rem;
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            counter-reset: sketch-counter;
+        }
+        li {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        li:hover {
+            background-color: #2a2a2a;
+            border-color: #666;
+            transform: translateY(-2px);
+        }
+        li::before {
+            counter-increment: sketch-counter;
+            content: counter(sketch-counter, decimal-leading-zero);
+            position: absolute;
+            bottom: -1.2rem;
+            right: -0.5rem;
+            font-size: 6rem;
+            font-weight: 900;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: rgba(255, 255, 255, 0.08);
+            pointer-events: none;
+            line-height: 1;
+        }
+        a {
+            display: block;
+            padding: 1rem;
+            text-decoration: none;
+            color: #fff;
+            position: relative;
+            z-index: 1;
+        }
+        .title {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .filename {
+            display: block;
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.3);
+            font-family: monospace;
+        }
+        .intro-text {
+            margin-bottom: 1rem;
+            color: #aaa;
+            line-height: 1.7;
+            font-size: 0.9rem;
+        }
+        .intro-text p:last-child {
+            margin-bottom: 0;
+        }
+        .social-links {
+            margin-bottom: 3rem;
+        }
+        .social-links a {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            border: 1px solid #444;
+            border-radius: 99px;
+            text-decoration: none;
+            color: #aaa;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+        .social-links a:hover {
+            background-color: #2a2a2a;
+            color: #fff;
+            border-color: #666;
+        }
+        .event-banner {
+            margin-bottom: 3rem;
+            border: 1px solid #333;
+            border-radius: 4px;
+            overflow: hidden;
+            background-color: #1a1a1a;
+            transition: all 0.2s ease;
+        }
+        .event-banner:hover {
+            transform: translateY(-2px);
+            border-color: #666;
+        }
+        .event-banner a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #fff;
+        }
+        .event-banner img {
+            width: 200px; /* 画像の幅を固定 */
+            height: 112px; /* 16:9比率 */
+            object-fit: cover;
+            display: block;
+            transition: opacity 0.2s ease;
+            opacity: 0.85;
+        }
+        .event-banner:hover img {
+            opacity: 1;
+        }
+        .event-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+        .event-banner h2 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #eee;
+        }
+        .event-banner p {
+            margin: 0.5rem 0 0;
+            font-size: 0.85rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <h1>VJ Procedural Generator Sketches</h1>
+    <div class="intro-text">
+        <p>VJ用のプロシージャルジェネレーターのスケッチ集です。</br>
+          以下のリストから各スケッチをクリックして、ブラウザで直接体験できます。新しいスケッチも随時追加予定です。</br>
+          書き出し方式は連番のpngとなりますので、必要に応じて動画編集ソフトなどでシーケンスとして読み込んでください。</br>
+          このサイトの素材はVJや映像制作のインスピレーションとして自由に使用できますが、商用利用や再配布の際は作者へのクレジットをお願いします。</p>
+    </div>
+    <div class="social-links">
+        <a href="https://x.com/onom" target="_blank">X @onom</a>
+    </div>
+    <div class="event-banner">
+        <a href="https://club-mogra.jp/2026/03/20/8747/" target="_blank">
+            <img src="https://api.microlink.io/?url=https://club-mogra.jp/2026/03/20/8747/&screenshot=true&meta=false&embed=screenshot.url" alt="Event Preview">
+            <div class="event-info">
+                <h2>Upcoming Event: ELEMOG</h2>
+                <p>2026.03.20 (FRI) @ MOGRA, Akihabara</p>
+                <p style="margin-top: 0.8rem; color: #bbb; line-height: 1.4;">秋葉原MOGRAで開催されるダンスミュージックパーティー"ELEMOG"に出演中です。<br>みなさんぜひ遊びに来てください！</p>
+            </div>
+        </a>
+    </div>
+    <ul>
+        <li><a href="attractor.html"><span class="title">Strange Attractors</span><span class="filename">attractor.html</span></a></li>
+        <li><a href="bento.html"><span class="title">Bento Grid Pop</span><span class="filename">bento.html</span></a></li>
+        <li><a href="crouwel_preview.html"><span class="title">Wim Crouwel Style Sketch Preview</span><span class="filename">crouwel_preview.html</span></a></li>
+        <li><a href="dia_preview.html"><span class="title">DIA Studio Style Sketch Preview</span><span class="filename">dia_preview.html</span></a></li>
+        <li><a href="diff_growth.html"><span class="title">Differential Growth</span><span class="filename">diff_growth.html</span></a></li>
+        <li><a href="eva.html"><span class="title">EVA UI System</span><span class="filename">eva.html</span></a></li>
+        <li><a href="index_ca.html"><span class="title">Cellular Automata</span><span class="filename">index_ca.html</span></a></li>
+        <li><a href="index_chaos.html"><span class="title">Chaos Attractor</span><span class="filename">index_chaos.html</span></a></li>
+        <li><a href="index_dataviz.html"><span class="title">Data Visualization</span><span class="filename">index_dataviz.html</span></a></li>
+        <li><a href="index_delaunay.html"><span class="title">Delaunay Triangulation</span><span class="filename">index_delaunay.html</span></a></li>
+        <li><a href="index_flow.html"><span class="title">Flow Fields</span><span class="filename">index_flow.html</span></a></li>
+        <li><a href="index_kinetic.html"><span class="title">Kinetic Typography</span><span class="filename">index_kinetic.html</span></a></li>
+        <li><a href="index_perlin.html"><span class="title">Perlin Noise</span><span class="filename">index_perlin.html</span></a></li>
+        <li><a href="index_physics.html"><span class="title">Physics Simulation</span><span class="filename">index_physics.html</span></a></li>
+        <li><a href="index_rd.html"><span class="title">Reaction Diffusion</span><span class="filename">index_rd.html</span></a></li>
+        <li><a href="index15.html"><span class="title">Organic Strata</span><span class="filename">index15.html</span></a></li>
+        <li><a href="lines_preview.html"><span class="title">Non-overlapping Lines Preview</span><span class="filename">lines_preview.html</span></a></li>
+        <li><a href="liquid.html"><span class="title">Liquid Motion</span><span class="filename">liquid.html</span></a></li>
+        <li><a href="memphis.html"><span class="title">Memphis Design</span><span class="filename">memphis.html</span></a></li>
+        <li><a href="modern_pop.html"><span class="title">Modern Pop Geometry</span><span class="filename">modern_pop.html</span></a></li>
+        <li><a href="particles.html"><span class="title">Particle System</span><span class="filename">particles.html</span></a></li>
+        <li><a href="particles3d.html"><span class="title">3D Particles (Three.js)</span><span class="filename">particles3d.html</span></a></li>
+        <li><a href="pixi_flow.html"><span class="title">Pixi Flow</span><span class="filename">pixi_flow.html</span></a></li>
+        <li><a href="riso.html"><span class="title">Risograph Generator</span><span class="filename">riso.html</span></a></li>
+        <li><a href="sketch_agent.html"><span class="title">Agent-based Simulation</span><span class="filename">sketch_agent.html</span></a></li>
+        <li><a href="sketch_tech.html"><span class="title">tech Style Sketch Preview</span><span class="filename">sketch_tech.html</span></a></li>
+        <li><a href="sketch.html"><span class="title">Sketch</span><span class="filename">sketch.html</span></a></li>
+        <li><a href="sketch2.html"><span class="title">Neon Flow</span><span class="filename">sketch2.html</span></a></li>
+        <li><a href="sketch3.html"><span class="title">Hyperspace Tunnel</span><span class="filename">sketch3.html</span></a></li>
+        <li><a href="sketch4.html"><span class="title">Psychedelic Op-Art</span><span class="filename">sketch4.html</span></a></li>
+        <li><a href="sketch5.html"><span class="title">Isometric Pop</span><span class="filename">sketch5.html</span></a></li>
+        <li><a href="sketch6.html"><span class="title">Synthwave</span><span class="filename">sketch6.html</span></a></li>
+        <li><a href="sketch7.html"><span class="title">Liquid Chrome</span><span class="filename">sketch7.html</span></a></li>
+        <li><a href="sketch8.html"><span class="title">Digital Swarm</span><span class="filename">sketch8.html</span></a></li>
+        <li><a href="sketch9.html"><span class="title">Cyber HUD</span><span class="filename">sketch9.html</span></a></li>
+        <li><a href="sketch10.html"><span class="title">Kinetic Grid</span><span class="filename">sketch10.html</span></a></li>
+        <li><a href="sketch11.html"><span class="title">Turing Pattern</span><span class="filename">sketch11.html</span></a></li>
+        <li><a href="sketch12.html"><span class="title">Strange Attractors</span><span class="filename">sketch12.html</span></a></li>
+        <li><a href="sketch13.html"><span class="title">Neo-Brutalism</span><span class="filename">sketch13.html</span></a></li>
+        <li><a href="sketch14.html"><span class="title">Data Spectra</span><span class="filename">sketch14.html</span></a></li>
+        <li><a href="sketch15.html"><span class="title">Organic Strata</span><span class="filename">sketch15.html</span></a></li>
+        <li><a href="sketch18.html"><span class="title">Sketch 18 - Brutalist Design</span><span class="filename">sketch18.html</span></a></li>
+        <li><a href="sketch19.html"><span class="title">Sketch 19 - Isometric Grid Pattern</span><span class="filename">sketch19.html</span></a></li>
+        <li><a href="slime.html"><span class="title">Slime Mold Simulation</span><span class="filename">slime.html</span></a></li>
+        <li><a href="utilitarian.html"><span class="title">Utilitarian UI</span><span class="filename">utilitarian.html</span></a></li>
+        <li><a href="warwicker_preview.html"><span class="title">Sketch Preview</span><span class="filename">warwicker_preview.html</span></a></li>
+    </ul>
+</body>
+</html>

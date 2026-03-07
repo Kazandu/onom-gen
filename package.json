@@ -1,0 +1,10 @@
+{
+  "name": "vj-procedural-generator",
+  "version": "1.0.0",
+  "description": "A launcher for VJ procedural generator sketches.",
+  "private": true,
+  "scripts": {
+    "update": "node update_launcher.js"
+  },
+  "author": ""
+}
