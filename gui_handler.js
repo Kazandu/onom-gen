@@ -4,7 +4,7 @@
   function initGUI() {
     if (guiInitialized) return;
 
-    // lil-guiが読み込まれているか確認
+    // lil-guiが読み込まれているか確認 -- Check if lil-gui is loaded
     if (typeof lil === 'undefined') {
       return;
     }
@@ -16,10 +16,10 @@
       guiInitialized = true;
       const gui = new lil.GUI();
     
-    // URLパラメータから設定を読み込む
+    // URLパラメータから設定を読み込む -- Read settings from URL Parameters
     const urlParams = new URLSearchParams(window.location.search);
 
-    // クエリパラメータ更新関数
+    // クエリパラメータ更新関数 -- Query parameter update function
     let queryUpdateTimeout;
     const pendingQueryUpdates = {};
 
@@ -39,7 +39,7 @@
         window.history.replaceState({}, '', url);
         queryUpdateTimeout = null;
         for (const k in pendingQueryUpdates) delete pendingQueryUpdates[k];
-      }, 500); // 0.5秒のデバウンスで頻度制限を回避
+      }, 500); // 0.5秒のデバウンスで頻度制限を回避 -- Bypass frequency limits with a 0.5-second debounce
     }
 
     const processConfig = (configList, parentGui) => {
@@ -53,20 +53,20 @@
         } else {
           const target = config.object || window;
           
-          // URLパラメータに値があれば適用
+          // URLパラメータに値があれば適用 -- Apply URL parameters if there is one
           if (urlParams.has(config.variable)) {
             let val = urlParams.get(config.variable);
-            // 数値変換
+            // 数値変換 -- Numerical conversion
             if (!isNaN(parseFloat(val)) && isFinite(val)) {
               val = parseFloat(val);
             }
-            // 真偽値変換
+            // 真偽値変換 -- Boolean conversion
             if (val === 'true') val = true;
             if (val === 'false') val = false;
             
             target[config.variable] = val;
 
-            // URLからの反映時にもonChange/onFinishChangeを発火させる
+            // URLからの反映時にもonChange/onFinishChangeを発火させる -- Trigger onChange/onFinishChange when the changes are reflected via URL
             if (config.onChange) {
               try {
                 config.onChange(val);
@@ -112,7 +112,7 @@
 
     processConfig(configData, gui);
 
-    // 設定URLコピー機能
+    // 設定URLコピー機能 -- URL Copy Function Settings
     let copyTimeout;
     const utils = {
       copyUrl: function() {
@@ -133,12 +133,12 @@
 
   window.addEventListener('load', () => {
     initGUI();
-    // p5.jsのsetup()などで遅れて設定される場合に備えてポーリングする
+    // p5.jsのsetup()などで遅れて設定される場合に備えてポーリングする -- Polling is used to handle situations where settings are delayed such as when using p5.js's setup()
     const interval = setInterval(() => {
       if (guiInitialized) clearInterval(interval);
       else initGUI();
     }, 200);
-    // 10秒で諦める
+    // 10秒で諦める -- Wait 10 seconds
     setTimeout(() => clearInterval(interval), 10000);
   });
 })();
