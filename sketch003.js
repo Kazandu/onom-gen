@@ -21,6 +21,7 @@ const params = {
   scrollSpeed: 0.0,
   style: 'BOLD', // NORMAL, BOLD, ITALIC
   colorMode: 'Dark', // Dark, Light, Blue, Red
+  renderBG: true,
   bgColor: '#000000',
   fgColor: '#FFFFFF',
   autoLayout: false,
@@ -74,8 +75,12 @@ function draw() {
   if (params.trailStrength > 0) {
     bgCol.setAlpha(map(params.trailStrength, 0, 100, 255, 10));
   }
-  fill(bgCol);
-  rect(0, 0, width, height);
+  if (params.renderBG) {
+    fill(params.bgColor);
+    rect(0, 0, width, height);
+  } else {
+    clear();
+  }
   
   if (params.bgMode === 'Technical') {
     drawTechnicalBackground();
@@ -281,6 +286,7 @@ window.guiConfig = [
   { folder: 'Color', contents: [
     { object: params, variable: 'colorMode', options: Object.keys(PALETTES), name: 'Palette' },
     { object: params, variable: 'bgMode', options: ['Solid', 'Technical'], name: 'Background' },
+    { object: params, variable: 'renderBG', name: 'Render Background'},
     { object: params, variable: 'trailStrength', min: 0, max: 100, name: 'Trail' },
     { object: params, variable: 'renderMode', options: ['FILL', 'OUTLINE', 'MIXED'], name: 'Render Mode' },
     { object: params, variable: 'strokeWidth', min: 0.5, max: 10.0, name: 'Outline Width' }
