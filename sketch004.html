@@ -9,7 +9,8 @@
       margin: 0;
       padding: 0;
       overflow: hidden;
-      background-color: #000;
+      /* Added checkered to display transparency if bgTransparency is set to true*/
+      background: repeating-conic-gradient(#ccc 0 25%, #0000 0 50%) 50% / 20px 20px;
     }
     canvas {
       display: block;

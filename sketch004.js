@@ -11,6 +11,7 @@ const params = {
   edgeForce: 0.5, // 画面内に留める力
   noiseInfluence: 0.1,
   rotationForce: 0.0,
+  renderBG: true,
   colorMode: 'Rainbow', // Rainbow, Heat, Ocean, Mono, BWB
   drawMode: 'Line', // Line, Points
   lineWidth: 2,
@@ -62,8 +63,12 @@ function draw() {
   blendMode(BLEND);
   rectMode(CORNER);
   noStroke();
-  fill(0);
-  rect(0, 0, width, height);
+  if (params.renderBG) {
+    fill(0);
+    rect(0, 0, width, height);
+  } else {
+    clear();
+  }
 
   // 空間分割（Spatial Hash）による高速化
   // 斥力計算の対象を近傍のノードに限定する
@@ -272,6 +277,7 @@ window.guiConfig = [
     { object: params, variable: 'reset', name: 'Reset', type: 'function' }
   ]},
   { folder: 'Style', contents: [
+    { object: params, variable: 'renderBG', name: 'Render Background'},
     { object: params, variable: 'colorMode', options: ['Rainbow', 'Heat', 'Ocean', 'Mono', 'BWB'], name: 'Color' },
     { object: params, variable: 'drawMode', options: ['Line', 'Points'], name: 'Draw Mode' },
     { object: params, variable: 'lineWidth', min: 0.5, max: 10, name: 'Width' }
