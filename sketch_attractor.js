@@ -29,10 +29,10 @@ let particles, geometry, material;
 let positions, colors;
 let time = 0;
 
-// アトラクタの状態
+// アトラクタの状態 -- State of the attractor
 let currentAttractor = null;
 
-// 書き出し用変数
+// 書き出し用変数 -- Variables for output
 let isExporting = false;
 let exportCount = 0;
 let exportMax = 0;
@@ -78,7 +78,7 @@ function initSystem() {
   positions = new Float32Array(params.particleCount * 3);
   colors = new Float32Array(params.particleCount * 3);
 
-  // 初期配置
+  // 初期配置 -- Initial setup
   const range = 5.0;
   for (let i = 0; i < params.particleCount; i++) {
     positions[i * 3] = (Math.random() - 0.5) * range;
@@ -105,12 +105,12 @@ function initSystem() {
   particles = new THREE.Points(geometry, material);
   scene.add(particles);
 
-  // カメラ位置とスケールの調整
+  // カメラ位置とスケールの調整 -- Adjusting the camera position and scale
   adjustCameraAndScale();
 }
 
 function adjustCameraAndScale() {
-  // アトラクタごとに適切なスケールとカメラ位置を設定
+  // アトラクタごとに適切なスケールとカメラ位置を設定 -- Set the appropriate scale and camera position for each attractor
   switch (params.attractor) {
     case 'Lorenz':
       params.scale = 1.0;
@@ -146,9 +146,9 @@ function updateParticles(dt) {
   const positions = particles.geometry.attributes.position.array;
   const colors = particles.geometry.attributes.color.array;
   const count = params.particleCount;
-  const speed = params.speed * 0.5; // タイムステップ調整
+  const speed = params.speed * 0.5; // タイムステップ調整 -- Time step adjustment
   
-  // アトラクタの計算関数を取得
+  // アトラクタの計算関数を取得 -- Retrieve the calculation function for the attractor
   const attractorFunc = getAttractorFunction(params.attractor);
   const scale = params.scale;
 
@@ -176,14 +176,14 @@ function updateParticles(dt) {
     positions[i3 + 1] = y * scale;
     positions[i3 + 2] = z * scale;
 
-    // 速度（変位量）を計算して色付けに使用
+    // 速度（変位量）を計算して色付けに使用 -- Calculate velocity (displacement) and use it for colouring
     const vSq = dx*dx + dy*dy + dz*dz;
     speeds[i] = vSq;
     if (vSq < minSpeed) minSpeed = vSq;
     if (vSq > maxSpeed) maxSpeed = vSq;
   }
 
-  // 色の更新
+  // 色の更新 -- Colour update
   const baseC = new THREE.Color(params.baseColor);
   const tempC = new THREE.Color();
 
@@ -191,14 +191,14 @@ function updateParticles(dt) {
     const i3 = i * 3;
     
     if (params.colorMode === 'Velocity') {
-      // 速度に応じた色
+      // 速度に応じた色 -- Colours based on speed
       const n = (speeds[i] - minSpeed) / (maxSpeed - minSpeed + 0.00001);
       tempC.setHSL(n * 0.7 + 0.5, 1.0, 0.6);
       colors[i3] = tempC.r;
       colors[i3+1] = tempC.g;
       colors[i3+2] = tempC.b;
     } else if (params.colorMode === 'Position') {
-      // 位置に応じた色
+      // 位置に応じた色 -- Colour by location
       const x = positions[i3] / (20 * scale);
       const y = positions[i3+1] / (20 * scale);
       const z = positions[i3+2] / (20 * scale);
