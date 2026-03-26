@@ -16,6 +16,7 @@ const params = {
   textString: 'CROUWEL',
   animMode: 'Random', // Scan, Random, Wave, Signage
   colorMode: 'Mono', // Stedelijk, Mono, Blue, Orange
+  renderBG: false,
   showGrid: true,
   fillShapes: true,
   distortion: 0.0,
@@ -49,6 +50,7 @@ let lastCam = { x: 0, y: 0, zoom: 1 };
 const PALETTES = {
   Stedelijk: { bg: '#EAEAEA', fg: '#E60012', grid: '#CCCCCC' }, // 赤・白・グレー
   Mono: { bg: '#000000', fg: '#FFFFFF', grid: '#333333' },
+  PureWhite: { bg: '#FFFFFF', fg: '#FFFFFF', grid: '#FFFFFF' },
   Blue: { bg: '#0044CC', fg: '#66CCFF', grid: '#003399' },
   Orange: { bg: '#FF6600', fg: '#111111', grid: '#CC5500' },
   Print: { bg: '#FFFFFF', fg: '#000000', grid: '#E0E0E0' } // 白背景・黒文字
@@ -241,9 +243,13 @@ function draw() {
   // 背景描画
   blendMode(BLEND);
   noStroke();
-  fill(palette.bg);
+  if (params.renderBG) {
+    fill(palette.bg);
+    rect(0, 0, width, height);
+  } else {
+    clear();
+  }
   rectMode(CORNER);
-  rect(0, 0, width, height);
   
   // カメラの動きに応じたズレ量を計算
   let dx = (cam.x - lastCam.x) * params.aberrationStrength;
@@ -254,8 +260,11 @@ function draw() {
   let bgCol = color(palette.bg);
   let isDark = (red(bgCol) + green(bgCol) + blue(bgCol)) / 3 < 128;
   
-  if (isDark) blendMode(ADD);
-  else blendMode(MULTIPLY);
+  if (isDark || params.colorMode === 'PureWhite') {
+    blendMode(ADD);
+  } else {
+    blendMode(MULTIPLY);
+  }
 
   // RGBチャンネルをずらして描画
   if (params.aberrationMode === 'RGB') {
@@ -708,6 +717,7 @@ window.guiConfig = [
   ]},
   { folder: 'Style', contents: [
     { object: params, variable: 'colorMode', options: Object.keys(PALETTES), name: 'Palette' },
+    { object: params, variable: 'renderBG', name: 'Render Background'},
     { object: params, variable: 'showGrid', name: 'Show Grid' },
     { object: params, variable: 'fillShapes', name: 'Fill Shapes' }
   ]},

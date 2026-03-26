@@ -10,7 +10,7 @@ const params = {
   gap: 8,
   cornerRadius: 16,
   speed: 1.0,
-  bgTransparency: true,
+  renderBG: true,
   bgColor: '#000000',
   palette: 'Red', // Red, Blue, Yellow, Green, Magenta
   autoUpdate: true,
@@ -341,7 +341,7 @@ function draw() {
   blendMode(BLEND);
   rectMode(CORNER);
   noStroke();
-  if (params.bgTransparency) {
+  if (params.renderBG) {
     fill(params.bgColor);
     rect(0, 0, width, height);
   } else {
@@ -1011,7 +1011,7 @@ window.guiConfig = [
   ]},
   { folder: 'Style', contents: [
     { object: params, variable: 'palette', options: Object.keys(PALETTES), name: 'Palette', onChange: () => generateBento(false) },
-    { object: params, variable: 'bgTransparency', name: 'Render Background'},
+    { object: params, variable: 'renderBG', name: 'Render Background'},
     { object: params, variable: 'bgColor', type: 'color', name: 'Background' },
     { object: params, variable: 'cornerRadius', min: 0, max: 100, name: 'Corner Radius' },
     { object: params, variable: 'speed', min: 0, max: 5.0, name: 'Anim Speed' },
