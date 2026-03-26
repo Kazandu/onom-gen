@@ -11,7 +11,7 @@ const params = {
   cornerRadius: 0, // Sharp edges for EVA style
   speed: 1.0,
   bgColor: '#000000',
-  transparentBG: false,
+  renderBG: true,
   palette: 'MAGI', // MAGI, NERV, EVA-01, EVA-00, EMERGENCY
   autoUpdate: true,
   updateInterval: 20,
@@ -288,7 +288,7 @@ function draw() {
   blendMode(BLEND);
   rectMode(CORNER);
   noStroke();
-  if (params.transparentBG) {
+  if (params.renderBG) {
     fill(params.bgColor);
     rect(0, 0, width, height);
   } else {
@@ -914,10 +914,10 @@ window.guiConfig = [
   ]},
   { folder: 'Display', contents: [
     { object: params, variable: 'palette', options: Object.keys(PALETTES), name: 'Mode', onChange: () => generateBento(false) },
+	  { object: params, variable: 'renderBG', name: 'Render Background' },
     { object: params, variable: 'bgColor', type: 'color', name: 'Background' },
     { object: params, variable: 'speed', min: 0, max: 5.0, name: 'Anim Speed' },
     { object: params, variable: 'scanline', name: 'Scanlines' },
-	{ object: params, variable: 'transparentBG', name: 'Background?' },
     { object: params, variable: 'autoUpdate', name: 'Auto Update' },
     { object: params, variable: 'updateInterval', min: 1, max: 120, step: 1, name: 'Update Interval' }
   ]},
