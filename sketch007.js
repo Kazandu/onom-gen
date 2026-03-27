@@ -12,10 +12,15 @@ var exportCount = 0;
 var exportMax = 600;
 var exportSessionID = "";
 
+const params = {
+  renderBG: true
+};
+
 var guiConfig = [
   { variable: 'a', min: 1, max: 20, step: 0.1 },
   { variable: 'b', min: 1, max: 50, step: 0.1 },
   { variable: 'c', min: 0.1, max: 10, step: 0.1 },
+  { object: params, variable: 'renderBG', name: 'Render Background'},
   { variable: 'exportMax', min: 60, max: 1200, step: 1, name: 'Export Frames' },
   { variable: 'startExport', name: 'Start Export', type: 'function' }
 ];
@@ -33,9 +38,15 @@ function setup() {
 }
 
 function draw() {
-  fill(0);
-  rect(-width/2, -height/2, width, height); // WEBGLモードなので座標に注意
-  
+// This render bg implementation is not optimal and might need changes in the other parameters too. 
+// Borders are too thin and are not leaving traces on transparency. But it works
+  if (params.renderBG) {
+    fill(0);
+  } else {
+    clear();
+  }
+rect(-width/2, -height/2, width, height); // WEBGLモードなので座標に注意
+
   let dt = 0.01;
   let dx = (a * (y - x)) * dt;
   let dy = (x * (b - z) - y) * dt;
